@@ -3,6 +3,11 @@
 *.env
 # C extensions
 *.so
+*.sqlite3
+*.swn
+*.swo
+*.swp
+*.swm
 # Packages
 *.egg
 *.egg-info
