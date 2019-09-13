@@ -1,5 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request
 from app.auth import bp
+from app import db, models
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
