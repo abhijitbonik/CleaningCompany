@@ -1,13 +1,6 @@
-from flask import render_template, redirect, url_for, flash, request
-from app.auth import bp
-from app import db, models
+from app.auth import api
+from app.auth.views import Login, Logout
 
-@bp.route('/login', methods=['GET', 'POST'])
-def login():
-    return "login success"
-
-
-@bp.route('/logout')
-def logout():
-    return "logout success"
+api.add_resource(Login, '/login')
+api.add_resource(Logout, '/logout')
 
