@@ -5,8 +5,8 @@ class Employee(db.Document):
     email = db.EmailField(required=True)
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
-    dob = db.DateTimeField()
-    identification=db.IntField()
+    dob = db.StringField()
+    identification=db.StringField()
     phone = db.IntField()
     availibility = db.BooleanField
 
