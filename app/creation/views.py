@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource
-from app.models import db, Worker, Vehicle, Equipment
+from app.models import db, Worker, Vehicle, Equipment, Jobs
 from flask import jsonify
 
 class WorkerApi(Resource):
@@ -115,4 +115,36 @@ class EquipmentApi(Resource):
         try:
             return Equipment.objects.exclude('id').get(uid=id)
         except Equipment.DoesNotExist:
+            return None
+
+class JobApi(Resource):
+    def get(self, id=None):
+        if id:
+            job = self.get_job(id)
+            return jsonify(job) if job else  {'status' : 'Job not found'}
+        return jsonify(Jobs.objects().exclude('id'))
+
+    def post(self):
+        if request.is_json:
+            customer_name = request.json['customer_name']
+            job_address = request.json['job_address']
+            billing_address = request.json['billing_address']
+            email = request.json['email']
+            customer_phone = request.json['customer_phone']
+            description =request.json['description']
+            size=request.json['size']
+            expectedStartDate = request.json['expectedStartDate']
+            expectedEndDate = request.json['expectedEndDate']
+            job=Jobs(customer_name=customername, job_address=job_address, billing_address=billing_address, email=email, customer_phone=customer_phone, description=description, size=size, expectedStartDate=expectedStartDate, expectedEndDate=expectedEndDate)
+            job.save()
+            return jsonify(job)
+        return {'status': 'invalid request'}
+
+    def put(self, id):
+        return '', 201
+
+    def get_job(self, id):
+        try:
+            return Jobs.objects.exclude('id').get(uid=id)
+        except Jobs.DoesNotExist:
             return None

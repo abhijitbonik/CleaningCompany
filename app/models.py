@@ -39,7 +39,7 @@ class Jobs(db.Document):
     job_address=db.ListField(db.EmbeddedDocumentField(Address))
     billing_address=db.ListField(db.EmbeddedDocumentField(Address))
     email=db.EmailField()
-    phone=db.IntField()
+    customer_phone=db.IntField()
     description=db.StringField()
     size=db.StringField()
     expectedStartDate=db.DateTimeField()
