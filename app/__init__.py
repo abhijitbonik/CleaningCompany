@@ -14,5 +14,5 @@ def create_app(config_class=Config):
     from app.auth import bp as auth_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
     from app.creation import bp as creation_bp
-    app.register_blueprint(creation_bp, url_prefix='/creation')
+    app.register_blueprint(creation_bp, url_prefix='/resource')
     return app

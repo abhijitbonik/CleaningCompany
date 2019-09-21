@@ -1,18 +1,19 @@
 from app import db
 
 
-class Employee(db.Document):
+class Worker(db.Document):
     email = db.EmailField(required=True)
     first_name = db.StringField(max_length=50)
     last_name = db.StringField(max_length=50)
     dob = db.StringField()
     identification=db.StringField()
     phone = db.IntField()
-    availibility = db.BooleanField
+    availibility = db.BooleanField()
 
 
 
 class Equipment(db.Document):
+    uid=db.StringField()
     etype=db.StringField()
     brand=db.StringField()
     model=db.StringField()
@@ -20,7 +21,7 @@ class Equipment(db.Document):
     availibility=db.BooleanField()
 
 class Vehicle(db.Document):
-    title=db.StringField()
+    name=db.StringField()
     seats=db.IntField()
     uid=db.StringField()
     availibility=db.BooleanField()
@@ -44,7 +45,7 @@ class Jobs(db.Document):
     expectedStartDate=db.DateTimeField()
     expectedEndDate=db.DateTimeField()
     costPerWorker=db.FloatField()
-    assignedWorkers=db.ListField(db.ReferenceField(Employee))
+    assignedWorkers=db.ListField(db.ReferenceField(Worker))
     costPerVehicle=db.FloatField()
     assignedVehicles=db.ListField(db.ReferenceField(Vehicle))
     cleaningEquipments=db.ListField(db.ReferenceField(Equipment))
