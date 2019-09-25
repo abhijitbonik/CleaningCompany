@@ -34,10 +34,10 @@ class Address(db.EmbeddedDocument):
     city=db.StringField()
     state=db.StringField()
 
-class Jobs(db.Document):
+class Job(db.Document):
     customer_name=db.StringField()
-    job_address=db.ListField(db.EmbeddedDocumentField(Address))
-    billing_address=db.ListField(db.EmbeddedDocumentField(Address))
+    job_address=db.EmbeddedDocumentField(Address)
+    billing_address=db.EmbeddedDocumentField(Address)
     email=db.EmailField()
     customer_phone=db.IntField()
     description=db.StringField()
@@ -49,4 +49,11 @@ class Jobs(db.Document):
     costPerVehicle=db.FloatField()
     assignedVehicles=db.ListField(db.ReferenceField(Vehicle))
     cleaningEquipments=db.ListField(db.ReferenceField(Equipment))
+    status=db.BooleanField()
+
+class AssignJob(db.Document):
+    worker=db.ReferenceField(Worker)
+    job=db.ReferenceField(Job)
+    assign_from_to=db.ListField(db.ListField(db.DateTimeField()))
+    status=db.BooleanField()
 
