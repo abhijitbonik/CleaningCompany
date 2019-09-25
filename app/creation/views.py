@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_restful import Resource
-from app.models import db, Worker, Vehicle, Equipment, Jobs
+from app.models import db, Worker, Vehicle, Equipment, Jobs, Address
 from flask import jsonify
 
 class WorkerApi(Resource):
@@ -127,15 +127,20 @@ class JobApi(Resource):
     def post(self):
         if request.is_json:
             customer_name = request.json['customer_name']
-            job_address = request.json['job_address']
-            billing_address = request.json['billing_address']
+            addressLine1 = request.json['jobaddressLine1']
+            addressLine2 = request.json['jobaddressLine2']
+            landmark = request.json['landmark']
+            zipcode =request.json['zipcode']
+            city=request.json['city']
+            state=request.json['state']
             email = request.json['email']
             customer_phone = request.json['customer_phone']
             description =request.json['description']
             size=request.json['size']
             expectedStartDate = request.json['expectedStartDate']
             expectedEndDate = request.json['expectedEndDate']
-            job=Jobs(customer_name=customername, job_address=job_address, billing_address=billing_address, email=email, customer_phone=customer_phone, description=description, size=size, expectedStartDate=expectedStartDate, expectedEndDate=expectedEndDate)
+            address=Address(addressLine1=addressLine1,addressLine2=addressLine2,landmark=landmark,zipcode=zipcode,city=city,state=state)
+            job=Jobs(customer_name=customer_name, job_address=address, billing_address=address, email=email, customer_phone=customer_phone, description=description, size=size, expectedStartDate=expectedStartDate, expectedEndDate=expectedEndDate)
             job.save()
             return jsonify(job)
         return {'status': 'invalid request'}

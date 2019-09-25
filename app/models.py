@@ -10,8 +10,6 @@ class Worker(db.Document):
     phone = db.IntField()
     availibility = db.BooleanField()
 
-
-
 class Equipment(db.Document):
     uid=db.StringField()
     etype=db.StringField()
@@ -34,7 +32,7 @@ class Address(db.EmbeddedDocument):
     city=db.StringField()
     state=db.StringField()
 
-class Job(db.Document):
+class Jobs(db.Document):
     customer_name=db.StringField()
     job_address=db.EmbeddedDocumentField(Address)
     billing_address=db.EmbeddedDocumentField(Address)
@@ -53,7 +51,8 @@ class Job(db.Document):
 
 class AssignJob(db.Document):
     worker=db.ReferenceField(Worker)
-    job=db.ReferenceField(Job)
-    assign_from_to=db.ListField(db.ListField(db.DateTimeField()))
+    job=db.ReferenceField(Jobs)
+    assign_from=db.DateTimeField()
+    assign_till=db.DateTimeField()
     status=db.BooleanField()
 
