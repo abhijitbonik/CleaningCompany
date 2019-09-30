@@ -1,5 +1,5 @@
 from app import db
-
+from passlib.hash import pbkdf2_sha256 as sha256
 
 class Worker(db.Document):
     email = db.EmailField(required=True)
@@ -56,3 +56,14 @@ class AssignJob(db.Document):
     assign_till=db.DateTimeField()
     status=db.BooleanField()
 
+
+class User(db.Document):
+    email = db.EmailField(required=True, unique=True)
+    first_name = db.StringField(max_length=50)
+    last_name = db.StringField(max_length=50)
+    username = db.StringField(required=True, unique=True)
+    password = db.StringField(required=True)
+
+    @staticmethod
+    def verify_hash(password, hash):
+        return sha256.verify(password, hash)

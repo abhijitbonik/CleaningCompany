@@ -12,3 +12,4 @@ class Config(object):
     MONGODB_DB = os.environ.get('MONGODB_DB')
     MONGODB_USERNAME = os.environ.get('MONGODB_USERNAME')
     MONGODB_PASSWORD = os.environ.get('MONGODB_PASSWORD')
+    JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY')

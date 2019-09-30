@@ -2,14 +2,17 @@ from flask import Flask, request
 from flask_restful import Resource
 from app.models import db, Worker, Vehicle, Equipment, Jobs, Address
 from flask import jsonify
+from flask_jwt_extended import jwt_required
 
 class WorkerApi(Resource):
+    @jwt_required
     def get(self, id=None):
         if id:
             worker = self.get_worker(id)
             return jsonify(worker) if worker else  {'status' : 'Worker not found'}
         return jsonify(Worker.objects().exclude('id'))
 
+    @jwt_required
     def post(self):
         if request.is_json:
             email = request.json['email']
@@ -23,9 +26,11 @@ class WorkerApi(Resource):
             return jsonify(worker)
         return {'status': 'invalid request'}
 
+    @jwt_required
     def put(self, id):
         return task, 201
 
+    @jwt_required
     def delete(self, id):
         if id:
             worker = self.get_worker(id)
@@ -45,12 +50,14 @@ class WorkerApi(Resource):
 
 
 class VehicleApi(Resource):
+    @jwt_required
     def get(self, id=None):
         if id:
             vehicle = self.get_vehicle(id)
             return jsonify(vehicle) if vehicle else  {'status' : 'Vehicle not found'}
         return jsonify(Vehicle.objects().exclude('id'))
 
+    @jwt_required
     def post(self):
         if request.is_json:
             name = request.json['name']
@@ -61,9 +68,11 @@ class VehicleApi(Resource):
             return jsonify(vehicle)
         return {'status': 'invalid request'}
 
+    @jwt_required
     def put(self, id):
         return '', 201
 
+    @jwt_required
     def delete(self, id):
         if id:
             vehicle = self.get_vehicle(id)
@@ -81,12 +90,14 @@ class VehicleApi(Resource):
 
 
 class EquipmentApi(Resource):
+    @jwt_required
     def get(self, id=None):
         if id:
             equp = self.get_equipment(id)
             return jsonify(equp) if equp else  {'status' : 'Equipment not found'}
         return jsonify(Equipment.objects().exclude('id'))
 
+    @jwt_required
     def post(self):
         if request.is_json:
             uid = request.json['uid']
@@ -98,7 +109,8 @@ class EquipmentApi(Resource):
             equp.save()
             return jsonify(equp)
         return {'status': 'invalid request'}
-
+    
+    @jwt_required
     def delete(self, id):
         if id:
             equp = self.get_equipment(id)
@@ -108,6 +120,7 @@ class EquipmentApi(Resource):
             return  {'status' : 404, 'message': 'Equipment not found'}
         return {'status' : 404 , 'message': 'invalid request'}
 
+    @jwt_required
     def put(self, id):
         return '', 201
 
@@ -118,12 +131,14 @@ class EquipmentApi(Resource):
             return None
 
 class JobApi(Resource):
+    @jwt_required
     def get(self, id=None):
         if id:
             job = self.get_job(id)
             return jsonify(job) if job else  {'status' : 'Job not found'}
         return jsonify(Jobs.objects().exclude('id'))
 
+    @jwt_required
     def post(self):
         if request.is_json:
             customer_name = request.json['customer_name']
@@ -145,6 +160,7 @@ class JobApi(Resource):
             return jsonify(job)
         return {'status': 'invalid request'}
 
+    @jwt_required
     def put(self, id):
         return '', 201
 
