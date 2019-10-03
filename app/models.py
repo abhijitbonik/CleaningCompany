@@ -58,9 +58,6 @@ class AssignJob(db.Document):
 
 
 class User(db.Document):
-    email = db.EmailField(required=True, unique=True)
-    first_name = db.StringField(max_length=50)
-    last_name = db.StringField(max_length=50)
     username = db.StringField(required=True, unique=True)
     password = db.StringField(required=True)
 
